@@ -5,11 +5,12 @@ using UnityEngine.UIElements;
 
 public class MainSceneManager : MonoBehaviour
 {
-    public int sceneMode; // 0 = Home, 1 = Pache, 2 = Kawasiro, 3 = Eientei
+    public int sceneMode; // 0:ホーム画面, 1:永遠亭, 2:河城にとり, 3:パチェの部屋
     public List<GameObject> homeScreenObjects;
-    public List<GameObject> pacheScreenObjects;
-    public List<GameObject> kawasiroScreenObjects;
+
     public List<GameObject> eienteiScreenObjects;
+    public List<GameObject> kawasiroScreenObjects;
+    public List<GameObject> pacheScreenObjects;
 
     // アイテムのパネル群
     public List<GameObject> itemPanels;
@@ -18,7 +19,8 @@ public class MainSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SwitchScreen(0); // 初期状態はホーム画面
+
     }
 
     // Update is called once per frame
@@ -32,9 +34,11 @@ public class MainSceneManager : MonoBehaviour
         sceneMode = mode;
 
         SetActiveObjects(homeScreenObjects, mode == 0);
-        SetActiveObjects(pacheScreenObjects, mode == 1);
+
+
+        SetActiveObjects(eienteiScreenObjects, mode == 1);
         SetActiveObjects(kawasiroScreenObjects, mode == 2);
-        SetActiveObjects(eienteiScreenObjects, mode == 3);
+        SetActiveObjects(pacheScreenObjects, mode == 3);
     }
 
     public void SetPanelsActive(bool isActive)
