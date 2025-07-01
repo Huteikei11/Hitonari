@@ -16,7 +16,8 @@ public class ItemUpgradeUI : MonoBehaviour
         }
 
         // SaveManagerのTryLevelUpItemメソッドを呼び出す
-        bool success = saveManager.TryLevelUpItem(category, itemName);
+        // bool success = saveManager.TryLevelUpItem(category, itemName);
+        bool success = false; // ここではダミーの成功フラグを使用
 
         if (success)
         {
