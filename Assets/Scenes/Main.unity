@@ -3162,16 +3162,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1264603361}
-        m_TargetAssemblyTypeName: MainSceneManager, Assembly-CSharp
-        m_MethodName: SwitchScreen
-        m_Mode: 3
+      - m_Target: {fileID: 2128674359}
+        m_TargetAssemblyTypeName: ItemCategoryManager, Assembly-CSharp
+        m_MethodName: OnItemSelectButtonClicked
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: "\u30D5\u30BF\u30CA\u30FC\u30EB"
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &378498685
@@ -7441,7 +7441,6 @@ RectTransform:
   - {fileID: 839397877}
   - {fileID: 440085762}
   - {fileID: 2128674356}
-  - {fileID: 1455714038}
   - {fileID: 1137251547}
   - {fileID: 1943966298}
   - {fileID: 2041127364}
@@ -8128,7 +8127,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455714037}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8137,7 +8136,7 @@ RectTransform:
   - {fileID: 1939267343}
   - {fileID: 1487461538}
   - {fileID: 1466673697}
-  m_Father: {fileID: 1327386952}
+  m_Father: {fileID: 2128674356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11253,6 +11252,7 @@ RectTransform:
   - {fileID: 67845371}
   - {fileID: 1356738741}
   - {fileID: 103263350}
+  - {fileID: 1455714038}
   m_Father: {fileID: 1327386952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

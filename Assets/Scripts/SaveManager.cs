@@ -115,8 +115,8 @@ public class PlayerData
     public float BallPowerEjaculation = 0f;
     public float AddictionEjaculation = 0f;
     public float FacilityMultiplier = 1.0f;
-    public int DickMilk = 0;
-    public int TotalDickMilk = 0;
+    public int DickMilk = 150;
+    public int TotalDickMilk = 150;
     public string TodayFacilityUpgrade = "";
 
     public int DickLength = 10;
