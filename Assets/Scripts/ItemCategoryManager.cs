@@ -76,7 +76,7 @@ public class ItemCategoryManager : MonoBehaviour
         {
             itemImage.sprite = itemDef.itemSprite; // アイテムのSpriteを設定
             // Spriteが設定されていない場合はImageを非表示にする（任意）
-            itemImage.enabled = itemDef.itemSprite != null;
+            // itemImage.enabled = itemDef.itemSprite != null;
         }
         // --- ここまで追加 ---
 

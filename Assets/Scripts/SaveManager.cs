@@ -115,8 +115,8 @@ public class PlayerData
     public float BallPowerEjaculation = 0f;
     public float AddictionEjaculation = 0f;
     public float FacilityMultiplier = 1.0f;
-    public int DickMilk = 150;
-    public int TotalDickMilk = 150;
+    public int DickMilk = 300;
+    public int TotalDickMilk = 300;
     public string TodayFacilityUpgrade = "";
 
     public int DickLength = 10;
@@ -183,7 +183,8 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         InitializeItemDefinitions();
-        Load();
+        // 最初に読み込むのを阻止
+        // Load();
     }
 
     /// <summary>
@@ -333,8 +334,40 @@ public class SaveManager : MonoBehaviour
             LaboratoryItems = ES3.Load<Dictionary<string, ItemEffect>>(laboratoryItemsKey);
         Debug.Log("ItemEffect States ロード完了");
 
+        // ロード後にSpriteを再割り当て
+        RestoreItemSprites();
+
         // ロード後に、新しいアイテムが追加されていた場合の対応
         InitializePlayerItemCounts();
+    }
+
+    // --- 追加: ロード後にitemSpriteを再割り当てするメソッド ---
+    private void RestoreItemSprites()
+    {
+        // Eientei
+        if (EienteiItems.ContainsKey("フタナリン")) EienteiItems["フタナリン"].itemSprite = futanalinSprite;
+        if (EienteiItems.ContainsKey("フタナール")) EienteiItems["フタナール"].itemSprite = futanaruSprite;
+        if (EienteiItems.ContainsKey("でかたまん")) EienteiItems["でかたまん"].itemSprite = dekaTamanSprite;
+        if (EienteiItems.ContainsKey("きょたまりん")) EienteiItems["きょたまりん"].itemSprite = kyotamarinSprite;
+        if (EienteiItems.ContainsKey("ごってりん")) EienteiItems["ごってりん"].itemSprite = gotterinSprite;
+        if (EienteiItems.ContainsKey("さずかーる")) EienteiItems["さずかーる"].itemSprite = sazukaruSprite;
+        if (EienteiItems.ContainsKey("媚薬")) EienteiItems["媚薬"].itemSprite = biryakuSprite;
+
+        // Workshop
+        if (WorkshopItems.ContainsKey("オナホール")) WorkshopItems["オナホール"].itemSprite = onaholeSprite;
+        if (WorkshopItems.ContainsKey("電動オナホール")) WorkshopItems["電動オナホール"].itemSprite = denDounaholeSprite;
+        if (WorkshopItems.ContainsKey("かいら君")) WorkshopItems["かいら君"].itemSprite = kairaKunSprite;
+        if (WorkshopItems.ContainsKey("かいら君EX")) WorkshopItems["かいら君EX"].itemSprite = kairaKunEXSprite;
+        if (WorkshopItems.ContainsKey("絞りトール")) WorkshopItems["絞りトール"].itemSprite = shiboriToolSprite;
+        if (WorkshopItems.ContainsKey("特殊迷彩グッズ「ケーホウ175」")) WorkshopItems["特殊迷彩グッズ「ケーホウ175」"].itemSprite = keihou175Sprite;
+        if (WorkshopItems.ContainsKey("特殊迷彩グッズ「ふらんちゃん」")) WorkshopItems["特殊迷彩グッズ「ふらんちゃん」"].itemSprite = furanChanSprite;
+
+        // Laboratory
+        if (LaboratoryItems.ContainsKey("おまんこ触手")) LaboratoryItems["おまんこ触手"].itemSprite = omankoShokushuSprite;
+        if (LaboratoryItems.ContainsKey("あなる触手")) LaboratoryItems["あなる触手"].itemSprite = analShokushuSprite;
+        if (LaboratoryItems.ContainsKey("おっぱい触手")) LaboratoryItems["おっぱい触手"].itemSprite = oppaiShokushuSprite;
+        if (LaboratoryItems.ContainsKey("媚薬触手")) LaboratoryItems["媚薬触手"].itemSprite = biryakuShokushuSprite;
+        if (LaboratoryItems.ContainsKey("ちんぽに餌やり")) LaboratoryItems["ちんぽに餌やり"].itemSprite = chinpoNiEsaYariSprite;
     }
 
     /// <summary>

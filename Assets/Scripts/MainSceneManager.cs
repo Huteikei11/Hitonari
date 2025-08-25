@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class MainSceneManager : MonoBehaviour
 {
     public int sceneMode; // 0:ホーム画面, 1:永遠亭, 2:河城にとり, 3:パチェの部屋 4:アイテムパネル
+    public GameObject ItemPanelShop; // アイテムパネルの親オブジェクト
     public List<GameObject> homeScreenObjects;
 
     public List<GameObject> eienteiScreenObjects;
@@ -36,7 +37,10 @@ public class MainSceneManager : MonoBehaviour
     public void SwitchScreen(int mode)
     {
         sceneMode = mode;
-
+        if(mode == 0 || mode == 4)
+        {
+            ItemPanelShop.SetActive(false);
+        }
         SetActiveObjects(homeScreenObjects, mode == 0 || mode == 4);
 
 

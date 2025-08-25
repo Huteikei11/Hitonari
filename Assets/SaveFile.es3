@@ -347,7 +347,7 @@
 			"BallPowerEjaculation" : 0,
 			"AddictionEjaculation" : 0,
 			"FacilityMultiplier" : 1,
-			"DickMilk" : 0,
+			"DickMilk" : 200,
 			"TotalDickMilk" : 0,
 			"TodayFacilityUpgrade" : "",
 			"DickLength" : 10,
@@ -360,11 +360,11 @@
 			"BoobLevel" : 0,
 			"Mosaic" : true,
 			"FranRemilia" : false,
-			"EienteiItemCounts" : {"フタナリン":2,"フタナール":0,"でかたまん":0,"きょたまりん":0,"ごってりん":0,"さずかーる":0,"媚薬":0
+			"EienteiItemCounts" : {"フタナリン":0,"フタナール":0,"でかたまん":0,"きょたまりん":0,"ごってりん":0,"さずかーる":0,"媚薬":0
 			},
 			"WorkshopItemCounts" : {"オナホール":0,"電動オナホール":0,"かいら君":0,"かいら君EX":0,"絞りトール":0,"特殊迷彩グッズ「ケーホウ175」":0,"特殊迷彩グッズ「ふらんちゃん」":0
 			},
-			"LaboratoryItemCounts" : {"おまんこ触手":0,"あなる触手":0,"おっぱい触手":0,"媚薬触手":0,"ちんぽに餌やり":0
+			"LaboratoryItemCounts" : {"おまんこ触手":0,"あなる触手":0,"おっぱい触手":0,"媚薬触手":0,"ちんぽに餌やり":1
 			}
 		}
 	}
