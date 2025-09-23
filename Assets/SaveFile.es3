@@ -340,15 +340,15 @@
 	"playerData" : {
 		"__type" : "PlayerData,Assembly-CSharp",
 		"value" : {
-			"Day" : 1,
-			"EjaculationAmount" : 3,
+			"Day" : 16,
+			"EjaculationAmount" : 2.99102831,
 			"BaseEjaculation" : 3,
 			"DickPowerEjaculation" : 0,
 			"BallPowerEjaculation" : 0,
 			"AddictionEjaculation" : 0,
 			"FacilityMultiplier" : 1,
-			"DickMilk" : 200,
-			"TotalDickMilk" : 0,
+			"DickMilk" : 545,
+			"TotalDickMilk" : 45,
 			"TodayFacilityUpgrade" : "",
 			"DickLength" : 10,
 			"BallLevel" : 0,
@@ -364,7 +364,7 @@
 			},
 			"WorkshopItemCounts" : {"オナホール":0,"電動オナホール":0,"かいら君":0,"かいら君EX":0,"絞りトール":0,"特殊迷彩グッズ「ケーホウ175」":0,"特殊迷彩グッズ「ふらんちゃん」":0
 			},
-			"LaboratoryItemCounts" : {"おまんこ触手":0,"あなる触手":0,"おっぱい触手":0,"媚薬触手":0,"ちんぽに餌やり":1
+			"LaboratoryItemCounts" : {"おまんこ触手":0,"あなる触手":0,"おっぱい触手":0,"媚薬触手":0,"ちんぽに餌やり":0
 			}
 		}
 	}

@@ -180,6 +180,9 @@ public class SaveManager : MonoBehaviour
     public Sprite biryakuShokushuSprite;
     public Sprite chinpoNiEsaYariSprite;
 
+    [Header("UI References")]
+    public FacilityUpgradeDisplay facilityUpgradeDisplay; // 施設アップグレード表示UI
+
     void Awake()
     {
         InitializeItemDefinitions();
@@ -581,5 +584,183 @@ public class SaveManager : MonoBehaviour
             if (!playerData.LaboratoryItemCounts.ContainsKey(pair.Key))
                 playerData.LaboratoryItemCounts[pair.Key] = 0;
         }
+    }
+
+    /// <summary>
+    /// 一日を終了し、プレイヤーデータを更新します。
+    /// 日数の増加、射精量の計算、ちんぽミルクの獲得などを行います。
+    /// </summary>
+    public void EndDay()
+    {
+        Debug.Log("--- 一日終了処理開始 ---");
+        
+        // 今日の施設アップグレード情報を保存
+        string todayUpgrade = playerData.TodayFacilityUpgrade;
+        
+        // 射精量を計算
+        CalculateDailyEjaculation();
+        
+        // 快楽中毒による追加射精量を計算（快楽中毒レベル * 0.1f）
+        playerData.AddictionEjaculation = playerData.PleasureAddiction * 0.1f;
+        
+        // 一日分のちんぽミルクを獲得
+        int gainedMilk = Mathf.RoundToInt(playerData.EjaculationAmount);
+        playerData.DickMilk += gainedMilk;
+        playerData.TotalDickMilk += gainedMilk;
+        
+        // 日数を進める
+        playerData.Day++;
+        
+        // 今日の施設アップグレードをリセット
+        playerData.TodayFacilityUpgrade = "";
+        
+        Debug.Log($"一日終了: Day {playerData.Day - 1} → Day {playerData.Day}");
+        Debug.Log($"射精量: {playerData.EjaculationAmount:F2}");
+        Debug.Log($"獲得ちんぽミルク: {gainedMilk}");
+        Debug.Log($"現在のちんぽミルク: {playerData.DickMilk}");
+        Debug.Log($"累計ちんぽミルク: {playerData.TotalDickMilk}");
+        
+        // セーブ
+        Save();
+        
+        // 30日目に達した場合はエンディングに移行
+        if (playerData.Day > 30)
+        {
+            Debug.Log("30日目に到達しました。エンディングに移行します。");
+            TriggerGameEnding();
+            return; // エンディング処理に移行するため、以降の処理は行わない
+        }
+        
+        // 施設アップグレード情報を表示
+        ShowFacilityUpgradeInfo(todayUpgrade);
+        
+        Debug.Log("--- 一日終了処理完了 ---");
+    }
+
+    /// <summary>
+    /// 施設アップグレード情報を表示します
+    /// </summary>
+    /// <param name="upgradeInfo">今日のアップグレード情報</param>
+    private void ShowFacilityUpgradeInfo(string upgradeInfo)
+    {
+        if (facilityUpgradeDisplay == null)
+        {
+            facilityUpgradeDisplay = FindObjectOfType<FacilityUpgradeDisplay>();
+        }
+
+        if (facilityUpgradeDisplay != null)
+        {
+            facilityUpgradeDisplay.ShowFacilityUpgrade(upgradeInfo, OnFacilityUpgradeDisplayComplete);
+        }
+        else
+        {
+            Debug.LogWarning("FacilityUpgradeDisplayが見つかりません。一日終了処理を続行します。");
+            OnFacilityUpgradeDisplayComplete();
+        }
+    }
+
+    /// <summary>
+    /// 施設アップグレード表示完了時のコールバック
+    /// </summary>
+    private void OnFacilityUpgradeDisplayComplete()
+    {
+        Debug.Log("施設アップグレード表示完了。次の日に進みます。");
+        // 必要に応じて、ここで次の日の処理や画面切り替えを行う
+    }
+
+    /// <summary>
+    /// 施設アップグレード情報を設定します（他のスクリプトから呼び出し用）
+    /// </summary>
+    /// <param name="upgradeInfo">アップグレード情報</param>
+    public void SetTodayFacilityUpgrade(string upgradeInfo)
+    {
+        playerData.TodayFacilityUpgrade = upgradeInfo;
+        Debug.Log($"今日の施設アップグレードを設定: {upgradeInfo}");
+    }
+
+    /// <summary>
+    /// ゲームエンディングに移行します（仮実装）
+    /// </summary>
+    private void TriggerGameEnding()
+    {
+        Debug.Log("=== ゲームエンディング開始 ===");
+        
+        // エンディング統計情報の表示
+        DisplayEndingStats();
+        
+        // TODO: 実際のエンディングUIの表示
+        // TODO: エンディングCGや演出の再生
+        // TODO: クレジットの表示
+        // TODO: タイトルに戻るボタンの表示
+        
+        Debug.Log("エンディング処理完了（仮実装）");
+    }
+
+    /// <summary>
+    /// エンディング時の統計情報を表示します
+    /// </summary>
+    private void DisplayEndingStats()
+    {
+        Debug.Log("=== 最終統計 ===");
+        Debug.Log($"総プレイ日数: 30日");
+        Debug.Log($"最終ちんぽミルク: {playerData.DickMilk}");
+        Debug.Log($"累計ちんぽミルク: {playerData.TotalDickMilk}");
+        Debug.Log($"最終射精量: {playerData.EjaculationAmount:F2}");
+        Debug.Log($"ちんぽの長さ: {playerData.DickLength}cm");
+        Debug.Log($"金玉レベル: {playerData.BallLevel}");
+        Debug.Log($"快楽中毒度: {playerData.PleasureAddiction}");
+        Debug.Log($"おまんこレベル: {playerData.PussyLevel}");
+        Debug.Log($"アナルレベル: {playerData.AnalLevel}");
+        Debug.Log($"おっぱいレベル: {playerData.BoobLevel}");
+        
+        // エンディング分岐の判定（例）
+        string endingType = DetermineEndingType();
+        Debug.Log($"エンディングタイプ: {endingType}");
+    }
+
+    /// <summary>
+    /// プレイヤーの状態に基づいてエンディングタイプを決定します
+    /// </summary>
+    /// <returns>エンディングタイプ</returns>
+    private string DetermineEndingType()
+    {
+        // エンディング分岐の例（実際の仕様に合わせて調整）
+        if (playerData.TotalDickMilk >= 50000)
+        {
+            return "True End - ちんぽミルク王";
+        }
+        else if (playerData.DickLength >= 50)
+        {
+            return "Good End - 巨根マスター";
+        }
+        else if (playerData.PleasureAddiction >= 100)
+        {
+            return "Bad End - 快楽の虜";
+        }
+        else if (playerData.PussyLevel >= 10 && playerData.AnalLevel >= 10 && playerData.BoobLevel >= 10)
+        {
+            return "Harem End - 全穴制覇";
+        }
+        else
+        {
+            return "Normal End - 平凡な結末";
+        }
+    }
+
+    /// <summary>
+    /// ゲームをリセットしてタイトルに戻ります（エンディング後の処理用）
+    /// </summary>
+    public void ReturnToTitle()
+    {
+        Debug.Log("タイトルに戻ります...");
+        
+        // TODO: 実際のタイトル画面への遷移処理
+        // TODO: 必要に応じてセーブデータの削除やリセット
+        
+        // 仮実装：新規データで初期化
+        playerData = new PlayerData();
+        InitializeItemDefinitions();
+        
+        Debug.Log("ゲームがリセットされました。");
     }
 }
