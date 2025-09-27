@@ -372,7 +372,11 @@ public class SaveManager : MonoBehaviour
 
         if (facilityUpgradeDisplay != null)
         {
-            facilityUpgradeDisplay.ShowFacilityUpgrade(upgradeInfo, OnFacilityUpgradeDisplayComplete);
+            // プレイヤー情報を生成
+            string playerInfo = FacilityUpgradeDisplay.GeneratePlayerInfoText(playerData);
+            
+            // 施設アップグレード情報とプレイヤー情報を両方表示
+            facilityUpgradeDisplay.ShowFacilityUpgradeWithPlayerInfo(upgradeInfo, playerInfo, OnFacilityUpgradeDisplayComplete);
         }
         else
         {

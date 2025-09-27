@@ -2018,6 +2018,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 245170780}
+  - component: {fileID: 245170781}
   - component: {fileID: 245170779}
   m_Layer: 0
   m_Name: SaveManager
@@ -2059,26 +2060,8 @@ MonoBehaviour:
     BoobLevel: 0
     Mosaic: 1
     FranRemilia: 0
-  futanalinSprite: {fileID: 21300000, guid: c6e0102c7fc273c42b0eb8150eb97d8d, type: 3}
-  futanaruSprite: {fileID: 21300000, guid: 1f70a9a754c5c5a4590deb2766712e3e, type: 3}
-  dekaTamanSprite: {fileID: 21300000, guid: f0e0b9f01a02cc7429b938aa69c2c567, type: 3}
-  kyotamarinSprite: {fileID: 21300000, guid: e8aa47bb881492e43863d36ea419841c, type: 3}
-  gotterinSprite: {fileID: 21300000, guid: 6483ed0b2fd88e14db6337c6e1a6da60, type: 3}
-  sazukaruSprite: {fileID: 21300000, guid: be9855c9199589146b7c37b79adb58f1, type: 3}
-  biryakuSprite: {fileID: 21300000, guid: 4f7a2a1f37efbd147b1f605727fb575c, type: 3}
-  onaholeSprite: {fileID: 21300000, guid: 296820933b17ce24db34261aa345561b, type: 3}
-  denDounaholeSprite: {fileID: 21300000, guid: bdd251f05892f1046b340477c16af229, type: 3}
-  kairaKunSprite: {fileID: 21300000, guid: 375f436c2f7e3b545a76088a3f058fd0, type: 3}
-  kairaKunEXSprite: {fileID: 21300000, guid: 6de7cecad20741f4b94fddc4231690c9, type: 3}
-  shiboriToolSprite: {fileID: 21300000, guid: 30f38c34f92369b4d926ac905ac04d71, type: 3}
-  keihou175Sprite: {fileID: 21300000, guid: 4d4319658420d164381e19e5096692dc, type: 3}
-  furanChanSprite: {fileID: 21300000, guid: a54d34c9fd557464b828bb77a560511e, type: 3}
-  omankoShokushuSprite: {fileID: 21300000, guid: d68c8a5fc9e70eb4bb7c2451c4d71239, type: 3}
-  analShokushuSprite: {fileID: 21300000, guid: aa7b594dd04678a45b0308c9e53012ac, type: 3}
-  oppaiShokushuSprite: {fileID: 21300000, guid: 19cfb31cbd83de44c97046399675b1d3, type: 3}
-  biryakuShokushuSprite: {fileID: 21300000, guid: 44ba937573c9f1543bad8f0ced9f8e9f, type: 3}
-  chinpoNiEsaYariSprite: {fileID: 21300000, guid: 8778bb9798432074ba68773bfccd34d6, type: 3}
-  facilityUpgradeDisplay: {fileID: 0}
+  itemDefinitions: {fileID: 245170781}
+  facilityUpgradeDisplay: {fileID: 734583020}
 --- !u!4 &245170780
 Transform:
   m_ObjectHideFlags: 0
@@ -2094,6 +2077,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &245170781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245170778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbebd85779b448148be9dea576ce5ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  futanalinSprite: {fileID: 0}
+  futanaruSprite: {fileID: 0}
+  dekaTamanSprite: {fileID: 0}
+  kyotamarinSprite: {fileID: 0}
+  gotterinSprite: {fileID: 0}
+  sazukaruSprite: {fileID: 0}
+  biryakuSprite: {fileID: 0}
+  onaholeSprite: {fileID: 0}
+  denDounaholeSprite: {fileID: 0}
+  kairaKunSprite: {fileID: 0}
+  kairaKunEXSprite: {fileID: 0}
+  shiboriToolSprite: {fileID: 0}
+  keihou175Sprite: {fileID: 0}
+  furanChanSprite: {fileID: 0}
+  omankoShokushuSprite: {fileID: 0}
+  analShokushuSprite: {fileID: 0}
+  oppaiShokushuSprite: {fileID: 0}
+  biryakuShokushuSprite: {fileID: 0}
+  chinpoNiEsaYariSprite: {fileID: 0}
 --- !u!1 &254195163
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,6 +3947,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398033336}
   m_CullTransparentMesh: 1
+--- !u!1 &403836767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 403836768}
+  - component: {fileID: 403836769}
+  - component: {fileID: 403836770}
+  m_Layer: 5
+  m_Name: Text (TMP) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &403836768
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403836767}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 464684969}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -297, y: 385}
+  m_SizeDelta: {x: 400, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &403836769
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403836767}
+  m_CullTransparentMesh: 1
+--- !u!114 &403836770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403836767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 02a648baa419e9742a9f8ec577b49ff8, type: 2}
+  m_sharedMaterial: {fileID: -8182370031790183867, guid: 02a648baa419e9742a9f8ec577b49ff8, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &404770196
 GameObject:
   m_ObjectHideFlags: 0
@@ -4453,6 +4601,7 @@ RectTransform:
   m_Children:
   - {fileID: 80116815}
   - {fileID: 533575722}
+  - {fileID: 403836768}
   m_Father: {fileID: 734583019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4473,7 +4622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4708,8 +4857,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 418, y: 385}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &533575723
 MonoBehaviour:
@@ -5239,7 +5388,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradePanel: {fileID: 464684968}
   upgradeText: {fileID: 533575723}
+  playerInfoText: {fileID: 403836770}
   continueButton: {fileID: 80116816}
+  scrollRect: {fileID: 0}
 --- !u!114 &734583021
 MonoBehaviour:
   m_ObjectHideFlags: 0
