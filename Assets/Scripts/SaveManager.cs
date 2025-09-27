@@ -2,147 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-/// <summary>
-/// アイテムの定義（効果、コスト、最大レベル）と、プレイヤーがそのアイテムを何回使用したかの状態を管理します。
-/// </summary>
-
-[Serializable]
-public class ItemEffect
-{
-    public int PurchaseCost = 0;      // 購入に必要なちんぽミルク
-    public int CurrentLevel = 0;      // 現在の効果レベル（使用回数）
-    public int MaxLevel = 5;          // 最大効果レベル（最大使用回数）
-
-    // --- ここから変更/追加 ---
-    [NonSerialized] // Unityのエディタでは表示されるが、Easy Saveでシリアライズしない
-    public Sprite itemSprite; // このアイテムの表示用画像
-
-    public string itemDescription; // アイテムの説明テキスト
-    // --- ここまで変更/追加 ---
-
-    // 各パラメータへの効果値（1レベルアップあたりの加算値）
-    public float BaseEjaculation = 0f;
-    public float DickPowerEjaculation = 0f;
-    public float BallPowerEjaculation = 0f;
-    public float FacilityMultiplier = 0f;
-    public int DickLength = 0;
-    public int BallLevel = 0;
-    public float SpermSize = 0f;
-    public int SemenDensity = 0;
-    public int PleasureAddiction = 0;
-    public int PussyLevel = 0;
-    public int AnalLevel = 0;
-    public int BoobLevel = 0;
-
-    public ItemEffect() { }
-
-    /// <summary>
-    /// アイテムの定義データを設定します。
-    /// </summary>
-    public void Initialize(int maxLevel, int purchaseCost,
-                           float baseEjac, float dickPowerEjac, float ballPowerEjac,
-                           float facilityMult, int dickLen, int ballLvl,
-                           float spermSz, int semenDens, int pleasureAdd,
-                           int pussyLvl, int analLvl, int boobLvl,
-                           Sprite sprite, // アイテムのSprite
-                           string description // アイテムの説明テキスト (--- ここが追加 ---)
-                           )
-    {
-        MaxLevel = maxLevel;
-        PurchaseCost = purchaseCost;
-        BaseEjaculation = baseEjac;
-        DickPowerEjaculation = dickPowerEjac;
-        BallPowerEjaculation = ballPowerEjac;
-        FacilityMultiplier = facilityMult;
-        DickLength = dickLen;
-        BallLevel = ballLvl;
-        SpermSize = spermSz;
-        SemenDensity = semenDens;
-        PleasureAddiction = pleasureAdd;
-        PussyLevel = pussyLvl;
-        AnalLevel = analLvl;
-        BoobLevel = boobLvl;
-        itemSprite = sprite;
-        // --- ここから追加 ---
-        itemDescription = description; // 説明テキストを設定
-        // --- ここまで追加 ---
-    }
-
-    // ApplyEffectメソッドは変更なし
-    public bool ApplyEffect(PlayerData playerData)
-    {
-        if (CurrentLevel >= MaxLevel)
-        {
-            Debug.Log($"このアイテムはこれ以上効果を適用できません（最大レベルに到達）: CurrentLevel={CurrentLevel}, MaxLevel={MaxLevel}");
-            return false;
-        }
-
-        CurrentLevel++; // 効果を適用したので使用回数を増やす
-
-        // パラメータをPlayerdataに加算
-        playerData.BaseEjaculation += BaseEjaculation;
-        playerData.DickPowerEjaculation += DickPowerEjaculation;
-        playerData.BallPowerEjaculation += BallPowerEjaculation;
-        playerData.FacilityMultiplier += FacilityMultiplier;
-        playerData.DickLength += DickLength;
-        playerData.BallLevel += BallLevel;
-        playerData.SpermSize += SpermSize;
-        playerData.SemenDensity += SemenDensity;
-        playerData.PleasureAddiction += PleasureAddiction;
-        playerData.PussyLevel += PussyLevel;
-        playerData.AnalLevel += AnalLevel;
-        playerData.BoobLevel += BoobLevel;
-
-        Debug.Log($"アイテムの効果が適用されました！現在の効果レベル: {CurrentLevel}");
-        return true;
-    }
-}
-
-
-
-/// <summary>
-/// プレイヤーの全パラメータとアイテムの所持数を管理するクラスです。
-/// </summary>
-[Serializable]
-public class PlayerData
-{
-    public int Day = 1;
-    public float EjaculationAmount = 3f;
-    public float BaseEjaculation = 3f;
-    public float DickPowerEjaculation = 0f;
-    public float BallPowerEjaculation = 0f;
-    public float AddictionEjaculation = 0f;
-    public float FacilityMultiplier = 1.0f;
-    public int DickMilk = 300;
-    public int TotalDickMilk = 300;
-    public string TodayFacilityUpgrade = "";
-
-    public int DickLength = 10;
-    public int BallLevel = 0;
-    public float SpermSize = 0.06f;
-    public int SemenDensity = 1;
-    public int PleasureAddiction = 0;
-    public int PussyLevel = 0;
-    public int AnalLevel = 0;
-    public int BoobLevel = 0;
-
-    public bool Mosaic = true;
-    public bool FranRemilia = false;
-
-    // 各アイテムの所持数を保存する辞書。購入したらここが増える。
-    public Dictionary<string, int> EienteiItemCounts = new Dictionary<string, int>();
-    public Dictionary<string, int> WorkshopItemCounts = new Dictionary<string, int>();
-    public Dictionary<string, int> LaboratoryItemCounts = new Dictionary<string, int>();
-
-    public PlayerData()
-    {
-        // PlayerDataがインスタンス化される際に辞書も初期化されることを保証
-    }
-}
-
-
 /// <summary>
 /// セーブ・ロード・計算、およびアイテムの購入・使用を管理するクラスです。
 /// </summary>
@@ -159,28 +18,8 @@ public class SaveManager : MonoBehaviour
     private string workshopItemsKey = "workshopItemStates";
     private string laboratoryItemsKey = "laboratoryItemStates";
 
-    [Header("Item Sprites")]
-    public Sprite futanalinSprite;
-    public Sprite futanaruSprite;
-    public Sprite dekaTamanSprite;
-    public Sprite kyotamarinSprite;
-    public Sprite gotterinSprite;
-    public Sprite sazukaruSprite;
-    public Sprite biryakuSprite;
-    public Sprite onaholeSprite;
-    public Sprite denDounaholeSprite;
-    public Sprite kairaKunSprite;
-    public Sprite kairaKunEXSprite;
-    public Sprite shiboriToolSprite;
-    public Sprite keihou175Sprite;
-    public Sprite furanChanSprite;
-    public Sprite omankoShokushuSprite;
-    public Sprite analShokushuSprite;
-    public Sprite oppaiShokushuSprite;
-    public Sprite biryakuShokushuSprite;
-    public Sprite chinpoNiEsaYariSprite;
-
-    [Header("UI References")]
+    [Header("References")]
+    public ItemDefinitions itemDefinitions; // アイテム定義管理クラスへの参照
     public FacilityUpgradeDisplay facilityUpgradeDisplay; // 施設アップグレード表示UI
 
     void Awake()
@@ -191,109 +30,24 @@ public class SaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 各アイテムの定義データ（購入コスト、効果値など）を設定します。
-    /// ゲーム開始時に一度だけ呼び出され、ロードデータで上書きされます。
+    /// 各アイテムの定義データを設定します
     /// </summary>
     private void InitializeItemDefinitions()
     {
-        // 永遠亭アイテムの定義
-        EienteiItems["フタナリン"] = new ItemEffect();
-        EienteiItems["フタナリン"].Initialize(maxLevel: 5, purchaseCost: 100, baseEjac: 0.5f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 1, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: futanalinSprite,
-                                            description: "男の娘になれる魔法の薬。ちんぽが少し伸びます。"); // --- ここを変更/追加 ---
+        if (itemDefinitions == null)
+        {
+            itemDefinitions = FindObjectOfType<ItemDefinitions>();
+            if (itemDefinitions == null)
+            {
+                Debug.LogError("ItemDefinitionsコンポーネントが見つかりません！");
+                return;
+            }
+        }
 
-        EienteiItems["フタナール"] = new ItemEffect();
-        EienteiItems["フタナール"].Initialize(maxLevel: 5, purchaseCost: 200, baseEjac: 1.0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 2, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: futanaruSprite,
-                                            description: "究極のフタナ薬。ちんぽが大きく育ちます。"); // --- ここを変更/追加 ---
-
-        EienteiItems["でかたまん"] = new ItemEffect();
-        EienteiItems["でかたまん"].Initialize(maxLevel: 5, purchaseCost: 150, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0.8f, facilityMult: 0f, dickLen: 0, ballLvl: 1, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                        sprite: dekaTamanSprite,
-                                        description: "金玉を大きくする薬。射精量が増えます。");
-
-        EienteiItems["きょたまりん"] = new ItemEffect();
-        EienteiItems["きょたまりん"].Initialize(maxLevel: 5, purchaseCost: 250, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 1.5f, facilityMult: 0f, dickLen: 0, ballLvl: 2, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: kyotamarinSprite,
-                                            description: "超でかたまになる薬。射精量がさらに増加します。");
-
-        EienteiItems["ごってりん"] = new ItemEffect();
-        EienteiItems["ごってりん"].Initialize(maxLevel: 5, purchaseCost: 300, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0.01f, semenDens: 1, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                        sprite: gotterinSprite,
-                                        description: "精子を巨大化させる薬。");
-
-        EienteiItems["さずかーる"] = new ItemEffect();
-        EienteiItems["さずかーる"].Initialize(maxLevel: 5, purchaseCost: 400, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0.02f, semenDens: 2, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                        sprite: sazukaruSprite,
-                                        description: "精液の濃度を高める薬。");
-
-        EienteiItems["媚薬"] = new ItemEffect();
-        EienteiItems["媚薬"].Initialize(maxLevel: 5, purchaseCost: 50, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 5, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                        sprite: biryakuSprite,
-                                        description: "快楽中毒度を上げる媚薬。");
-
-
-        // 工房アイテムの定義
-        WorkshopItems["オナホール"] = new ItemEffect();
-        WorkshopItems["オナホール"].Initialize(maxLevel: 5, purchaseCost: 80, baseEjac: 0f, dickPowerEjac: 0.3f, ballPowerEjac: 0f, facilityMult: 0.02f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: onaholeSprite,
-                                            description: "基本的なオナホール。");
-
-        WorkshopItems["電動オナホール"] = new ItemEffect();
-        WorkshopItems["電動オナホール"].Initialize(maxLevel: 5, purchaseCost: 180, baseEjac: 0f, dickPowerEjac: 0.8f, ballPowerEjac: 0f, facilityMult: 0.05f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                                sprite: denDounaholeSprite,
-                                                description: "強力な電動オナホール。");
-
-        WorkshopItems["かいら君"] = new ItemEffect();
-        WorkshopItems["かいら君"].Initialize(maxLevel: 5, purchaseCost: 120, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 10, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: kairaKunSprite,
-                                            description: "快感を高める自慰具。");
-
-        WorkshopItems["かいら君EX"] = new ItemEffect();
-        WorkshopItems["かいら君EX"].Initialize(maxLevel: 5, purchaseCost: 220, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 20, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: kairaKunEXSprite,
-                                            description: "超快感の自慰具。");
-
-        WorkshopItems["絞りトール"] = new ItemEffect();
-        WorkshopItems["絞りトール"].Initialize(maxLevel: 5, purchaseCost: 250, baseEjac: 0f, dickPowerEjac: 1.0f, ballPowerEjac: 1.0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                            sprite: shiboriToolSprite,
-                                            description: "射精量を増やすための特殊な道具。");
-
-        WorkshopItems["特殊迷彩グッズ「ケーホウ175」"] = new ItemEffect();
-        WorkshopItems["特殊迷彩グッズ「ケーホウ175」"].Initialize(maxLevel: 1, purchaseCost: 500, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                                                sprite: keihou175Sprite,
-                                                                description: "フタナレミリアを隠すための迷彩グッズ。");
-
-        WorkshopItems["特殊迷彩グッズ「ふらんちゃん」"] = new ItemEffect();
-        WorkshopItems["特殊迷彩グッズ「ふらんちゃん」"].Initialize(maxLevel: 1, purchaseCost: 500, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                                                sprite: furanChanSprite,
-                                                                description: "フランちゃん用の特殊迷彩グッズ。");
-
-        // 研究室アイテムの定義
-        LaboratoryItems["おまんこ触手"] = new ItemEffect();
-        LaboratoryItems["おまんこ触手"].Initialize(maxLevel: 5, purchaseCost: 150, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 1, analLvl: 0, boobLvl: 0,
-                                                    sprite: omankoShokushuSprite,
-                                                    description: "おまんこのレベルを上げる触手。");
-
-        LaboratoryItems["あなる触手"] = new ItemEffect();
-        LaboratoryItems["あなる触手"].Initialize(maxLevel: 5, purchaseCost: 150, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 1, boobLvl: 0,
-                                                    sprite: analShokushuSprite,
-                                                    description: "あなるのレベルを上げる触手。");
-
-        LaboratoryItems["おっぱい触手"] = new ItemEffect();
-        LaboratoryItems["おっぱい触手"].Initialize(maxLevel: 5, purchaseCost: 150, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 1,
-                                                    sprite: oppaiShokushuSprite,
-                                                    description: "おっぱいのレベルを上げる触手。");
-
-        LaboratoryItems["媚薬触手"] = new ItemEffect();
-        LaboratoryItems["媚薬触手"].Initialize(maxLevel: 5, purchaseCost: 200, baseEjac: 0f, dickPowerEjac: 0f, ballPowerEjac: 0f, facilityMult: 0f, dickLen: 0, ballLvl: 0, spermSz: 0f, semenDens: 0, pleasureAdd: 15, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                                sprite: biryakuShokushuSprite,
-                                                description: "快楽中毒度を大幅に上げる触手。");
-
-        LaboratoryItems["ちんぽに餌やり"] = new ItemEffect();
-        LaboratoryItems["ちんぽに餌やり"].Initialize(maxLevel: 5, purchaseCost: 300, baseEjac: 0f, dickPowerEjac: 0.5f, ballPowerEjac: 0.5f, facilityMult: 0f, dickLen: 1, ballLvl: 1, spermSz: 0f, semenDens: 0, pleasureAdd: 0, pussyLvl: 0, analLvl: 0, boobLvl: 0,
-                                                    sprite: chinpoNiEsaYariSprite,
-                                                    description: "ちんぽと金玉を同時に強化する。");
+        // アイテム定義を初期化
+        itemDefinitions.InitializeEienteiItems(EienteiItems);
+        itemDefinitions.InitializeWorkshopItems(WorkshopItems);
+        itemDefinitions.InitializeLaboratoryItems(LaboratoryItems);
 
         InitializePlayerItemCounts();
     }
@@ -324,11 +78,9 @@ public class SaveManager : MonoBehaviour
         else
         {
             Debug.Log("PlayerData がありません。新規データを作成します。");
-            // PlayerDataのコンストラクタで辞書が初期化され、InitializeItemDefinitionsでカウントエントリが追加される
         }
 
         // ItemEffectの状態（CurrentLevel）をロード
-        // InitializeItemDefinitionsで設定された初期値は、ロードされたデータで上書きされます
         if (ES3.KeyExists(eienteiItemsKey))
             EienteiItems = ES3.Load<Dictionary<string, ItemEffect>>(eienteiItemsKey);
         if (ES3.KeyExists(workshopItemsKey))
@@ -338,39 +90,13 @@ public class SaveManager : MonoBehaviour
         Debug.Log("ItemEffect States ロード完了");
 
         // ロード後にSpriteを再割り当て
-        RestoreItemSprites();
+        if (itemDefinitions != null)
+        {
+            itemDefinitions.RestoreItemSprites(EienteiItems, WorkshopItems, LaboratoryItems);
+        }
 
         // ロード後に、新しいアイテムが追加されていた場合の対応
         InitializePlayerItemCounts();
-    }
-
-    // --- 追加: ロード後にitemSpriteを再割り当てするメソッド ---
-    private void RestoreItemSprites()
-    {
-        // Eientei
-        if (EienteiItems.ContainsKey("フタナリン")) EienteiItems["フタナリン"].itemSprite = futanalinSprite;
-        if (EienteiItems.ContainsKey("フタナール")) EienteiItems["フタナール"].itemSprite = futanaruSprite;
-        if (EienteiItems.ContainsKey("でかたまん")) EienteiItems["でかたまん"].itemSprite = dekaTamanSprite;
-        if (EienteiItems.ContainsKey("きょたまりん")) EienteiItems["きょたまりん"].itemSprite = kyotamarinSprite;
-        if (EienteiItems.ContainsKey("ごってりん")) EienteiItems["ごってりん"].itemSprite = gotterinSprite;
-        if (EienteiItems.ContainsKey("さずかーる")) EienteiItems["さずかーる"].itemSprite = sazukaruSprite;
-        if (EienteiItems.ContainsKey("媚薬")) EienteiItems["媚薬"].itemSprite = biryakuSprite;
-
-        // Workshop
-        if (WorkshopItems.ContainsKey("オナホール")) WorkshopItems["オナホール"].itemSprite = onaholeSprite;
-        if (WorkshopItems.ContainsKey("電動オナホール")) WorkshopItems["電動オナホール"].itemSprite = denDounaholeSprite;
-        if (WorkshopItems.ContainsKey("かいら君")) WorkshopItems["かいら君"].itemSprite = kairaKunSprite;
-        if (WorkshopItems.ContainsKey("かいら君EX")) WorkshopItems["かいら君EX"].itemSprite = kairaKunEXSprite;
-        if (WorkshopItems.ContainsKey("絞りトール")) WorkshopItems["絞りトール"].itemSprite = shiboriToolSprite;
-        if (WorkshopItems.ContainsKey("特殊迷彩グッズ「ケーホウ175」")) WorkshopItems["特殊迷彩グッズ「ケーホウ175」"].itemSprite = keihou175Sprite;
-        if (WorkshopItems.ContainsKey("特殊迷彩グッズ「ふらんちゃん」")) WorkshopItems["特殊迷彩グッズ「ふらんちゃん」"].itemSprite = furanChanSprite;
-
-        // Laboratory
-        if (LaboratoryItems.ContainsKey("おまんこ触手")) LaboratoryItems["おまんこ触手"].itemSprite = omankoShokushuSprite;
-        if (LaboratoryItems.ContainsKey("あなる触手")) LaboratoryItems["あなる触手"].itemSprite = analShokushuSprite;
-        if (LaboratoryItems.ContainsKey("おっぱい触手")) LaboratoryItems["おっぱい触手"].itemSprite = oppaiShokushuSprite;
-        if (LaboratoryItems.ContainsKey("媚薬触手")) LaboratoryItems["媚薬触手"].itemSprite = biryakuShokushuSprite;
-        if (LaboratoryItems.ContainsKey("ちんぽに餌やり")) LaboratoryItems["ちんぽに餌やり"].itemSprite = chinpoNiEsaYariSprite;
     }
 
     /// <summary>
@@ -390,18 +116,14 @@ public class SaveManager : MonoBehaviour
 
     /// <summary>
     /// 指定されたアイテムを購入します。
-    /// ちんぽミルクを消費し、プレイヤーのアイテム所持数を増やします。
     /// </summary>
-    /// <param name="category">アイテムのカテゴリ (e.g., "Eientei", "Workshop", "Laboratory")</param>
-    /// <param name="itemName">アイテムの名前</param>
-    /// <returns>購入が成功したかどうか</returns>
     public bool BuyItem(string category, string itemName)
     {
         Dictionary<string, ItemEffect> itemDefinitions = GetItemDictionary(category);
         Dictionary<string, int> itemCounts = GetPlayerItemCountsDictionary(category);
 
         if (itemDefinitions == null || itemCounts == null)
-            return false; // エラーはGetItemDictionary/GetPlayerItemCountsDictionaryでログ出力済み
+            return false;
 
         if (!itemDefinitions.TryGetValue(itemName, out ItemEffect itemDef))
         {
@@ -415,21 +137,17 @@ public class SaveManager : MonoBehaviour
             return false;
         }
 
-        playerData.DickMilk -= itemDef.PurchaseCost; // コストを消費
-        itemCounts[itemName] = itemCounts.GetValueOrDefault(itemName, 0) + 1; // 所持数を増やす
+        playerData.DickMilk -= itemDef.PurchaseCost;
+        itemCounts[itemName] = itemCounts.GetValueOrDefault(itemName, 0) + 1;
 
         Debug.Log($"{itemName} を購入しました！ 所持数: {itemCounts[itemName]}, 残りちんぽミルク: {playerData.DickMilk}");
-        Save(); // 購入後、セーブ
+        Save();
         return true;
     }
 
     /// <summary>
     /// 指定されたアイテムを使用します。
-    /// アイテムの所持数を減らし、その効果をプレイヤーデータに適用します。
     /// </summary>
-    /// <param name="category">アイテムのカテゴリ</param>
-    /// <param name="itemName">アイテムの名前</param>
-    /// <returns>使用が成功したかどうか</returns>
     public bool UseItem(string category, string itemName)
     {
         Dictionary<string, ItemEffect> itemDefinitions = GetItemDictionary(category);
@@ -450,157 +168,35 @@ public class SaveManager : MonoBehaviour
             return false;
         }
 
-        // 最大レベルに達しているかどうかのチェックはItemEffect.ApplyEffectに任せる
-        // UseItemが成功してもApplyEffectが失敗する可能性があるため、その場合は在庫を戻す
-        itemCounts[itemName]--; // 所持数を減らす
-
-        bool effectApplied = itemDef.ApplyEffect(playerData); // 効果を適用
+        itemCounts[itemName]--;
+        bool effectApplied = itemDef.ApplyEffect(playerData);
+        
         if (!effectApplied)
         {
             Debug.LogWarning($"{itemName} の効果適用に失敗しましたが、使用はされました。所持数を戻します。");
-            itemCounts[itemName]++; // 効果適用失敗なので所持数を戻す
-            Save(); // 失敗時も状態が変わる可能性があるのでセーブ
+            itemCounts[itemName]++;
+            Save();
             return false;
         }
 
         Debug.Log($"{itemName} を使用しました！ 残り所持数: {itemCounts[itemName]}, 現在の効果レベル: {itemDef.CurrentLevel}");
-        Save(); // 使用後、セーブ
+        Save();
         return true;
     }
 
     /// <summary>
-    /// カテゴリ名に基づいてItemEffect辞書を取得します。
-    /// </summary>
-    private Dictionary<string, ItemEffect> GetItemDictionary(string category)
-    {
-        switch (category)
-        {
-            case "Eientei": return EienteiItems;
-            case "Workshop": return WorkshopItems;
-            case "Laboratory": return LaboratoryItems;
-            default:
-                Debug.LogError($"未知のアイテムカテゴリ: {category}");
-                return null;
-        }
-    }
-
-    /// <summary>
-    /// カテゴリ名に基づいてPlayerData内のアイテムカウント辞書を取得します。
-    /// </summary>
-    private Dictionary<string, int> GetPlayerItemCountsDictionary(string category)
-    {
-        switch (category)
-        {
-            case "Eientei": return playerData.EienteiItemCounts;
-            case "Workshop": return playerData.WorkshopItemCounts;
-            case "Laboratory": return playerData.LaboratoryItemCounts;
-            default:
-                Debug.LogError($"未知のアイテムカテゴリ: {category}");
-                return null;
-        }
-    }
-
-    /// <summary>
-    /// アイテムの購入と使用の例です。（UIからの呼び出しなどを想定）
-    /// </summary>
-    public void ExampleItemUsage()
-    {
-        Debug.Log("--- アイテム購入・使用テスト開始 ---");
-
-        // テスト用にちんぽミルクを増やす
-        playerData.DickMilk = 1000;
-        Debug.Log($"初期ちんぽミルク: {playerData.DickMilk}");
-        Debug.Log($"フタナリン初期所持数: {playerData.EienteiItemCounts.GetValueOrDefault("フタナリン", 0)}");
-        Debug.Log($"フタナリン初期効果レベル: {EienteiItems["フタナリン"].CurrentLevel}");
-        Debug.Log($"初期ちんぽ長さ: {playerData.DickLength}");
-
-        // 1. フタナリンを2個購入
-        Debug.Log("--- フタナリンを2個購入 ---");
-        BuyItem("Eientei", "フタナリン");
-        BuyItem("Eientei", "フタナリン");
-        Debug.Log($"フタナリン購入後所持数: {playerData.EienteiItemCounts.GetValueOrDefault("フタナリン", 0)}");
-        Debug.Log($"残りちんぽミルク: {playerData.DickMilk}");
-
-        // 2. フタナリンを1個使用
-        Debug.Log("--- フタナリンを1個使用 ---");
-        if (UseItem("Eientei", "フタナリン"))
-        {
-            Debug.Log("フタナリンの使用に成功！");
-        }
-        else
-        {
-            Debug.Log("フタナリンの使用に失敗。");
-        }
-
-        Debug.Log($"フタナリン使用後所持数: {playerData.EienteiItemCounts.GetValueOrDefault("フタナリン", 0)}");
-        Debug.Log($"フタナリン使用後効果レベル: {EienteiItems["フタナリン"].CurrentLevel}");
-        Debug.Log($"使用後ちんぽ長さ: {playerData.DickLength}");
-
-        // 3. 最大レベルまでフタナリンを使用する例 (足りない分は購入から)
-        playerData.DickMilk += 5000; // たっぷりミルクを追加
-        Debug.Log("--- フタナリンを最大レベルまで使用（必要に応じて購入） ---");
-        while (EienteiItems["フタナリン"].CurrentLevel < EienteiItems["フタナリン"].MaxLevel)
-        {
-            if (playerData.EienteiItemCounts.GetValueOrDefault("フタナリン", 0) <= 0)
-            {
-                Debug.Log("フタナリンの在庫がないので購入を試みます。");
-                if (!BuyItem("Eientei", "フタナリン"))
-                {
-                    Debug.Log("フタナリンを購入できませんでした。テスト終了。");
-                    break;
-                }
-            }
-            if (UseItem("Eientei", "フタナリン"))
-            {
-                Debug.Log($"フタナリン使用成功！ 効果レベル: {EienteiItems["フタナリン"].CurrentLevel}, 残り所持数: {playerData.EienteiItemCounts.GetValueOrDefault("フタナリン", 0)}");
-            }
-            else
-            {
-                Debug.Log("フタナリンの使用に失敗しました。テスト終了。");
-                break;
-            }
-        }
-        Debug.Log($"最終フタナリン効果レベル: {EienteiItems["フタナリン"].CurrentLevel}, 最終ちんぽ長さ: {playerData.DickLength}");
-
-        Debug.Log("--- アイテム購入・使用テスト終了 ---");
-    }
-
-    private void InitializePlayerItemCounts()
-    {
-        // EienteiItemsの定義を基に、PlayerData.EienteiItemCountsを初期化/更新
-        foreach (var pair in EienteiItems)
-        {
-            if (!playerData.EienteiItemCounts.ContainsKey(pair.Key))
-                playerData.EienteiItemCounts[pair.Key] = 0;
-        }
-        // WorkshopItemsとLaboratoryItemsについても同様の処理
-        foreach (var pair in WorkshopItems)
-        {
-            if (!playerData.WorkshopItemCounts.ContainsKey(pair.Key))
-                playerData.WorkshopItemCounts[pair.Key] = 0;
-        }
-        foreach (var pair in LaboratoryItems)
-        {
-            if (!playerData.LaboratoryItemCounts.ContainsKey(pair.Key))
-                playerData.LaboratoryItemCounts[pair.Key] = 0;
-        }
-    }
-
-    /// <summary>
     /// 一日を終了し、プレイヤーデータを更新します。
-    /// 日数の増加、射精量の計算、ちんぽミルクの獲得などを行います。
     /// </summary>
     public void EndDay()
     {
         Debug.Log("--- 一日終了処理開始 ---");
         
-        // 今日の施設アップグレード情報を保存
         string todayUpgrade = playerData.TodayFacilityUpgrade;
         
         // 射精量を計算
         CalculateDailyEjaculation();
         
-        // 快楽中毒による追加射精量を計算（快楽中毒レベル * 0.1f）
+        // 快楽中毒による追加射精量を計算
         playerData.AddictionEjaculation = playerData.PleasureAddiction * 0.1f;
         
         // 一日分のちんぽミルクを獲得
@@ -610,8 +206,6 @@ public class SaveManager : MonoBehaviour
         
         // 日数を進める
         playerData.Day++;
-        
-        // 今日の施設アップグレードをリセット
         playerData.TodayFacilityUpgrade = "";
         
         Debug.Log($"一日終了: Day {playerData.Day - 1} → Day {playerData.Day}");
@@ -619,6 +213,9 @@ public class SaveManager : MonoBehaviour
         Debug.Log($"獲得ちんぽミルク: {gainedMilk}");
         Debug.Log($"現在のちんぽミルク: {playerData.DickMilk}");
         Debug.Log($"累計ちんぽミルク: {playerData.TotalDickMilk}");
+        
+        // 一日の統計情報を表示
+        DisplayDailyStats();
         
         // セーブ
         Save();
@@ -628,7 +225,7 @@ public class SaveManager : MonoBehaviour
         {
             Debug.Log("30日目に到達しました。エンディングに移行します。");
             TriggerGameEnding();
-            return; // エンディング処理に移行するため、以降の処理は行わない
+            return;
         }
         
         // 施設アップグレード情報を表示
@@ -638,15 +235,140 @@ public class SaveManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 一日の終了時にプレイヤーステータスの統計情報を表示します
+    /// </summary>
+    private void DisplayDailyStats()
+    {
+        Debug.Log("=== 本日の統計情報 ===");
+        Debug.Log($"経過日数: {playerData.Day}日目");
+        Debug.Log($"本日の射精量: {playerData.EjaculationAmount:F2}");
+        Debug.Log($"現在のちんぽミルク: {playerData.DickMilk}");
+        Debug.Log($"累計ちんぽミルク: {playerData.TotalDickMilk}");
+        
+        Debug.Log("--- 現在のステータス ---");
+        Debug.Log($"基本射精量: {playerData.BaseEjaculation:F2}");
+        Debug.Log($"ちんぽパワー射精量: {playerData.DickPowerEjaculation:F2}");
+        Debug.Log($"金玉パワー射精量: {playerData.BallPowerEjaculation:F2}");
+        Debug.Log($"快楽中毒射精量: {playerData.AddictionEjaculation:F2}");
+        Debug.Log($"施設倍率: {playerData.FacilityMultiplier:F2}");
+        
+        Debug.Log("--- 身体パラメータ ---");
+        Debug.Log($"ちんぽの長さ: {playerData.DickLength}cm");
+        Debug.Log($"金玉レベル: {playerData.BallLevel}");
+        Debug.Log($"精子サイズ: {playerData.SpermSize:F3}");
+        Debug.Log($"精液密度: {playerData.SemenDensity}");
+        Debug.Log($"快楽中毒度: {playerData.PleasureAddiction}");
+        
+        Debug.Log("--- 性感帯レベル ---");
+        Debug.Log($"おまんこレベル: {playerData.PussyLevel}");
+        Debug.Log($"アナルレベル: {playerData.AnalLevel}");
+        Debug.Log($"おっぱいレベル: {playerData.BoobLevel}");
+        
+        Debug.Log("--- その他設定 ---");
+        Debug.Log($"モザイク設定: {(playerData.Mosaic ? "ON" : "OFF")}");
+        Debug.Log($"フランレミリア: {(playerData.FranRemilia ? "ON" : "OFF")}");
+        
+        DisplayItemStats();
+        Debug.Log("=== 統計情報終了 ===");
+    }
+
+    /// <summary>
+    /// アイテム所持数の統計情報を表示します
+    /// </summary>
+    private void DisplayItemStats()
+    {
+        Debug.Log("--- アイテム所持状況 ---");
+        
+        // 永遠亭アイテム
+        Debug.Log("【永遠亭アイテム】");
+        int eienteiTotal = 0;
+        foreach (var item in playerData.EienteiItemCounts)
+        {
+            if (item.Value > 0)
+            {
+                Debug.Log($"  {item.Key}: {item.Value}個");
+                eienteiTotal += item.Value;
+            }
+        }
+        Debug.Log($"  永遠亭アイテム合計: {eienteiTotal}個");
+        
+        // 工房アイテム
+        Debug.Log("【工房アイテム】");
+        int workshopTotal = 0;
+        foreach (var item in playerData.WorkshopItemCounts)
+        {
+            if (item.Value > 0)
+            {
+                Debug.Log($"  {item.Key}: {item.Value}個");
+                workshopTotal += item.Value;
+            }
+        }
+        Debug.Log($"  工房アイテム合計: {workshopTotal}個");
+        
+        // 研究室アイテム
+        Debug.Log("【研究室アイテム】");
+        int laboratoryTotal = 0;
+        foreach (var item in playerData.LaboratoryItemCounts)
+        {
+            if (item.Value > 0)
+            {
+                Debug.Log($"  {item.Key}: {item.Value}個");
+                laboratoryTotal += item.Value;
+            }
+        }
+        Debug.Log($"  研究室アイテム合計: {laboratoryTotal}個");
+        
+        int allItemsTotal = eienteiTotal + workshopTotal + laboratoryTotal;
+        Debug.Log($"全アイテム合計: {allItemsTotal}個");
+        
+        DisplayItemEffectLevels();
+    }
+
+    /// <summary>
+    /// アイテム効果レベルの統計情報を表示します
+    /// </summary>
+    private void DisplayItemEffectLevels()
+    {
+        Debug.Log("--- アイテム効果レベル ---");
+        
+        // 永遠亭アイテムの効果レベル
+        Debug.Log("【永遠亭アイテム効果】");
+        foreach (var item in EienteiItems)
+        {
+            if (item.Value.CurrentLevel > 0)
+            {
+                Debug.Log($"  {item.Key}: Lv.{item.Value.CurrentLevel}/{item.Value.MaxLevel}");
+            }
+        }
+        
+        // 工房アイテムの効果レベル
+        Debug.Log("【工房アイテム効果】");
+        foreach (var item in WorkshopItems)
+        {
+            if (item.Value.CurrentLevel > 0)
+            {
+                Debug.Log($"  {item.Key}: Lv.{item.Value.CurrentLevel}/{item.Value.MaxLevel}");
+            }
+        }
+        
+        // 研究室アイテムの効果レベル
+        Debug.Log("【研究室アイテム効果】");
+        foreach (var item in LaboratoryItems)
+        {
+            if (item.Value.CurrentLevel > 0)
+            {
+                Debug.Log($"  {item.Key}: Lv.{item.Value.CurrentLevel}/{item.Value.MaxLevel}");
+            }
+        }
+    }
+
+    /// <summary>
     /// 施設アップグレード情報を表示します
     /// </summary>
-    /// <param name="upgradeInfo">今日のアップグレード情報</param>
     private void ShowFacilityUpgradeInfo(string upgradeInfo)
     {
         if (facilityUpgradeDisplay == null)
-        {
             facilityUpgradeDisplay = FindObjectOfType<FacilityUpgradeDisplay>();
-        }
 
         if (facilityUpgradeDisplay != null)
         {
@@ -665,13 +387,11 @@ public class SaveManager : MonoBehaviour
     private void OnFacilityUpgradeDisplayComplete()
     {
         Debug.Log("施設アップグレード表示完了。次の日に進みます。");
-        // 必要に応じて、ここで次の日の処理や画面切り替えを行う
     }
 
     /// <summary>
-    /// 施設アップグレード情報を設定します（他のスクリプトから呼び出し用）
+    /// 施設アップグレード情報を設定します
     /// </summary>
-    /// <param name="upgradeInfo">アップグレード情報</param>
     public void SetTodayFacilityUpgrade(string upgradeInfo)
     {
         playerData.TodayFacilityUpgrade = upgradeInfo;
@@ -679,20 +399,12 @@ public class SaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲームエンディングに移行します（仮実装）
+    /// ゲームエンディングに移行します
     /// </summary>
     private void TriggerGameEnding()
     {
         Debug.Log("=== ゲームエンディング開始 ===");
-        
-        // エンディング統計情報の表示
         DisplayEndingStats();
-        
-        // TODO: 実際のエンディングUIの表示
-        // TODO: エンディングCGや演出の再生
-        // TODO: クレジットの表示
-        // TODO: タイトルに戻るボタンの表示
-        
         Debug.Log("エンディング処理完了（仮実装）");
     }
 
@@ -713,54 +425,77 @@ public class SaveManager : MonoBehaviour
         Debug.Log($"アナルレベル: {playerData.AnalLevel}");
         Debug.Log($"おっぱいレベル: {playerData.BoobLevel}");
         
-        // エンディング分岐の判定（例）
         string endingType = DetermineEndingType();
         Debug.Log($"エンディングタイプ: {endingType}");
     }
 
     /// <summary>
-    /// プレイヤーの状態に基づいてエンディングタイプを決定します
+    /// エンディングタイプを決定します
     /// </summary>
-    /// <returns>エンディングタイプ</returns>
     private string DetermineEndingType()
     {
-        // エンディング分岐の例（実際の仕様に合わせて調整）
         if (playerData.TotalDickMilk >= 50000)
-        {
             return "True End - ちんぽミルク王";
-        }
         else if (playerData.DickLength >= 50)
-        {
             return "Good End - 巨根マスター";
-        }
         else if (playerData.PleasureAddiction >= 100)
-        {
             return "Bad End - 快楽の虜";
-        }
         else if (playerData.PussyLevel >= 10 && playerData.AnalLevel >= 10 && playerData.BoobLevel >= 10)
-        {
             return "Harem End - 全穴制覇";
-        }
         else
-        {
             return "Normal End - 平凡な結末";
-        }
     }
 
     /// <summary>
-    /// ゲームをリセットしてタイトルに戻ります（エンディング後の処理用）
+    /// ゲームをリセットしてタイトルに戻ります
     /// </summary>
     public void ReturnToTitle()
     {
         Debug.Log("タイトルに戻ります...");
-        
-        // TODO: 実際のタイトル画面への遷移処理
-        // TODO: 必要に応じてセーブデータの削除やリセット
-        
-        // 仮実装：新規データで初期化
         playerData = new PlayerData();
         InitializeItemDefinitions();
-        
         Debug.Log("ゲームがリセットされました。");
+    }
+
+    // ヘルパーメソッド群
+    private Dictionary<string, ItemEffect> GetItemDictionary(string category)
+    {
+        switch (category)
+        {
+            case "Eientei": return EienteiItems;
+            case "Workshop": return WorkshopItems;
+            case "Laboratory": return LaboratoryItems;
+            default:
+                Debug.LogError($"未知のアイテムカテゴリ: {category}");
+                return null;
+        }
+    }
+
+    private Dictionary<string, int> GetPlayerItemCountsDictionary(string category)
+    {
+        switch (category)
+        {
+            case "Eientei": return playerData.EienteiItemCounts;
+            case "Workshop": return playerData.WorkshopItemCounts;
+            case "Laboratory": return playerData.LaboratoryItemCounts;
+            default:
+                Debug.LogError($"未知のアイテムカテゴリ: {category}");
+                return null;
+        }
+    }
+
+    private void InitializePlayerItemCounts()
+    {
+        foreach (var pair in EienteiItems)
+            if (!playerData.EienteiItemCounts.ContainsKey(pair.Key))
+                playerData.EienteiItemCounts[pair.Key] = 0;
+
+        foreach (var pair in WorkshopItems)
+            if (!playerData.WorkshopItemCounts.ContainsKey(pair.Key))
+                playerData.WorkshopItemCounts[pair.Key] = 0;
+
+        foreach (var pair in LaboratoryItems)
+            if (!playerData.LaboratoryItemCounts.ContainsKey(pair.Key))
+                playerData.LaboratoryItemCounts[pair.Key] = 0;
     }
 }
