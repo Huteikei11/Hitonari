@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class MainSceneManager : MonoBehaviour
 {
-    public int sceneMode; // 0:ホーム画面, 1:永遠亭, 2:河城にとり, 3:パチェの部屋 4:アイテムパネル
+    public int sceneMode; // 0:ホーム画面, 1:永遠亭, 2:河城にとり, 3:パチェの部屋 4:アイテムパネル 5:レミリアの様子
     public GameObject ItemPanelShop; // アイテムパネルの親オブジェクト
     public List<GameObject> homeScreenObjects;
 
@@ -13,9 +13,9 @@ public class MainSceneManager : MonoBehaviour
     public List<GameObject> kawasiroScreenObjects;
     public List<GameObject> pacheScreenObjects;
 
-    // アイテムのパネル群
+    // アイテムのパネル群 4はアイテムのパネル
     public List<GameObject> itemPanels;
-    // レミリアの様子のパネル群
+    // レミリアの様子のパネル群 5はレミリアの様子のパネル
     public List<GameObject> viewPanels;
     // homeのボタンのパネル群
     public List<GameObject> homebuttonPanels;
@@ -36,18 +36,20 @@ public class MainSceneManager : MonoBehaviour
     // 画面切り替えこれを参照する
     public void SwitchScreen(int mode)
     {
-        sceneMode = mode;
-        if(mode == 0 || mode == 4)
+        sceneMode = mode; // 現在のモードを更新
+        if (mode == 0 || mode == 4 || mode == 5)
         {
-            ItemPanelShop.SetActive(false);
+            ItemPanelShop.SetActive(false); // アイテムパネルを非表示にする
         }
-        SetActiveObjects(homeScreenObjects, mode == 0 || mode == 4);
+        SetActiveObjects(homeScreenObjects, mode == 0 || mode == 4 || mode == 5); // ホーム画面はモード0と4で表示
 
 
         SetActiveObjects(eienteiScreenObjects, mode == 1 );
         SetActiveObjects(kawasiroScreenObjects, mode == 2);
         SetActiveObjects(pacheScreenObjects, mode == 3);
+        SetActiveObjects(viewPanels, mode == 5); // レミリアの様子のパネルのアクティブ状態を設定
         SetPanelsActive(mode == 4); // アイテムパネルのアクティブ状態を設定
+        SetUIGroupActive(homebuttonPanels, !(mode ==5)); // レミリアの様子のパネルがアクティブな場合、ホームのボタンパネルを非アクティブにする
     }
 
     public void SetPanelsActive(bool isActive)
