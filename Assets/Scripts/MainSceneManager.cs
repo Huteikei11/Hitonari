@@ -50,6 +50,7 @@ public class MainSceneManager : MonoBehaviour
         SetActiveObjects(viewPanels, mode == 5); // レミリアの様子のパネルのアクティブ状態を設定
         SetPanelsActive(mode == 4); // アイテムパネルのアクティブ状態を設定
         SetUIGroupActive(homebuttonPanels, !(mode ==5)); // レミリアの様子のパネルがアクティブな場合、ホームのボタンパネルを非アクティブにする
+        SetUIGroupActive(homebuttonPanels, !(mode == 4)); // アイテムパネルがアクティブな場合、ホームのボタンパネルを非アクティブにする 
     }
 
     public void SetPanelsActive(bool isActive)
